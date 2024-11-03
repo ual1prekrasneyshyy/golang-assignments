@@ -1,0 +1,24 @@
+<a class="btn btn-success mb-4" routerLink="/add-item">ADD ITEM</a>
+
+<table class="table table-striped">
+    <thead class="table-primary">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Details</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let i of items">
+        <td>{{i.id}}</td>
+        <td>{{i.name}}</td>
+        <td>{{i.price}}</td>
+        <td>{{i.quantity}}</td>
+        <td>
+            <a class="btn btn-primary text-light" [routerLink]="['/item', i.id]">VIEW DETAILS</a>
+        </td>
+    </tr>
+    </tbody>
+</table>

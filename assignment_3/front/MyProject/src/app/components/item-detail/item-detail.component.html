@@ -1,0 +1,9 @@
+<h2>{{item?.name}}</h2>
+<p>Rating is {{item?.rating}}</p>
+<p>Costs {{item?.price}} KZT</p>
+<p>There are {{item?.quantity}} items on the stock</p>
+
+<div class="d-flex">
+    <a class="btn btn-primary me-3" [routerLink]="['/update-item', item?.id]">EDIT</a>
+    <a class="btn btn-danger" (click)="removeItem()">DELETE</a>
+</div>
