@@ -24,7 +24,6 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		log.Println("The content of username may contain SQL injection code")
 		return
 	}
-
 	if !ValidateString(password) {
 		http.Error(w, http.StatusText(400), http.StatusBadRequest)
 		log.Println("The content of password may contain SQL injection code")
@@ -40,7 +39,6 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	_, err := CheckPasswordsEquality(user.Password, password)
-
 	if err != nil {
 		http.Error(w, http.StatusText(403), http.StatusForbidden)
 		log.Println("Incorrect password!")
@@ -48,13 +46,11 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	token, err := GenerateJWT(user)
-
 	if err != nil {
 		http.Error(w, http.StatusText(500), http.StatusInternalServerError)
 		log.Println("Token can not be generated!")
 		return
 	}
-
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Authorization", "Bearer "+token)
 }
@@ -72,7 +68,6 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 		log.Println("The content of username may contain SQL injection code")
 		return
 	}
-
 	if !ValidateString(user.Password) {
 		http.Error(w, http.StatusText(400), http.StatusBadRequest)
 		log.Println("The content of password may contain SQL injection code")
@@ -85,14 +80,12 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 	}
 
 	exists, _ := UserExists(user.Username)
-
 	if exists {
 		http.Error(w, http.StatusText(400), http.StatusBadRequest)
 		log.Println("User already exists!")
 	}
 
 	HashedPassword, err := HashPassword(user.Password)
-
 	if err != nil {
 		http.Error(w, http.StatusText(500), http.StatusInternalServerError)
 		log.Println("Error occured with password hashing")
